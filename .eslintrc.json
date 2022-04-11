@@ -15,7 +15,7 @@
   "plugins": ["react"],
   "rules": {
     "no-prototype-builtins": "off",
-    "no-console": "warn",
+    "no-console": ["error", { "allow": ["warn", "error"] }],
     "no-unused-vars": "warn"
   }
 }

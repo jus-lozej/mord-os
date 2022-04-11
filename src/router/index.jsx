@@ -1,6 +1,7 @@
 import React from "react";
 import FileSystem from "../pages/FileSystem";
 import SignIn from "../pages/SignIn";
+import { RequiresAuth } from "../utils/auth";
 
 const routes = [
   {
@@ -10,7 +11,11 @@ const routes = [
   },
   {
     name: "FileSystem",
-    element: <FileSystem />,
+    element: (
+      <RequiresAuth>
+        <FileSystem />
+      </RequiresAuth>
+    ),
     path: "/",
   },
 ];
