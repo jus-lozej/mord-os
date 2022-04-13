@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Button from "../../components/Button/Button";
+import Input from "../../components/Input/Input";
 import { useAuth } from "../../utils/auth";
+import "./style.scss";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +14,8 @@ const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const login = () => {
+  const login = (e) => {
+    e.preventDefault();
     try {
       signin(email, pass, () => {
         const from = location.state?.from?.pathname || "/";
@@ -24,19 +28,27 @@ const SignIn = () => {
 
   return (
     <div className="sign-in">
-      <h1>Mord-OS</h1>
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        placeholder="Password"
-        value={pass}
-        onChange={(e) => setPass(e.target.value)}
-      />
-      {error ? <div className="error-message">{error}</div> : null}
-      <button onClick={login}>Login</button>
+      <div className="sign-in-container">
+        <h1>Mord-OS</h1>
+        <form onSubmit={login}>
+          <Input
+            fluid
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            fluid
+            type="password"
+            placeholder="Password"
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
+          />
+          {error ? <div className="error-message">{error}</div> : null}
+          <Button type="submit">Login</Button>
+        </form>
+      </div>
     </div>
   );
 };

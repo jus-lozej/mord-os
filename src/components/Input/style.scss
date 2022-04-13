@@ -1,0 +1,24 @@
+.input {
+  box-shadow: inset 0 0.0625em 0.125em rgb(10 10 10 / 5%);
+  max-width: 100%;
+  width: 100%;
+
+  background-color: #fff;
+  border-color: #dbdbdb;
+  border-radius: 0.375em;
+  color: #363636;
+
+  &:active,
+  &:focus {
+    border-color: #485fc7; //TODO: add primary color
+    box-shadow: 0 0 0 0.125em rgb(72 95 199 / 25%);
+  }
+
+  &:hover {
+    border-color: #b5b5b5;
+  }
+
+  &.fluid {
+    width: 100%;
+  }
+}
