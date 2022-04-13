@@ -1,0 +1,27 @@
+@import "/src/style/utilities/index.scss";
+
+.file-container {
+  margin: getSpacing("4");
+
+  display: grid;
+  place-items: center;
+
+  .file {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+
+    background-color: $gray;
+    color: $white;
+    border-radius: $border-radius;
+    &:hover {
+      color: $pink;
+    }
+    &-icon {
+    }
+    &-text {
+    }
+  }
+}

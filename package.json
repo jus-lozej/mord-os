@@ -9,6 +9,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@iconscout/unicons": "^4.0.1",
     "classnames": "^2.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

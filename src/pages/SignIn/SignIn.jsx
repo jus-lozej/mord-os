@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Button from "../../components/Button/Button";
-import Input from "../../components/Input/Input";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
 import { useAuth } from "../../utils/auth";
 import "./style.scss";
 

@@ -3,10 +3,12 @@ import "./App.scss";
 import { Route, Routes } from "react-router-dom";
 import routes from "./router";
 import { AuthProvider, createRootUser } from "./utils/auth";
+import { createMockFilesystem } from "./utils/filesystem";
 
 function App() {
   useEffect(() => {
     createRootUser();
+    createMockFilesystem();
   }, []);
 
   const routeComponents = routes.map((route) => {
