@@ -1,40 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import "./style.scss";
 import Icon from "../Icon";
 import { motion } from "framer-motion";
+import { useWindows } from "../../providers/windowManager";
 
-const variants = {
-  open: { opacity: 1 },
-  closed: { opacity: 0 },
-};
-
-const Window = ({
-  children = <></>,
-  name = "Window",
-  open = false,
-  onClose = () => {},
-  onMinimize = () => {},
-}) => {
-  const [isOpen, setIsOpen] = useState(open);
-
-  const el = document.querySelector("body");
-  useEffect(() => {
-    setIsOpen(open);
-  }, [open]);
+const Window = ({ children = <></>, name = "Window", id = "" }) => {
+  const { closeWindow, getWindow, minimizeWindow } = useWindows();
+  const myWindow = getWindow(id);
 
   const handleCloseClick = () => {
-    setIsOpen(false);
-    onClose();
+    closeWindow(id);
   };
 
   const handleMinimizeClick = () => {
-    setIsOpen(false);
-    onMinimize();
+    minimizeWindow(id);
   };
 
-  return isOpen
+  const el = document.querySelector("body");
+  return myWindow.active
     ? createPortal(
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
@@ -61,9 +46,6 @@ const Window = ({
 };
 Window.propTypes = {
   children: PropTypes.node,
-  name: PropTypes.string,
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
-  onMinimize: PropTypes.func,
+  id: PropTypes.string.isRequired,
 };
 export default Window;
