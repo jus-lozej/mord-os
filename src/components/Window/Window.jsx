@@ -5,10 +5,21 @@ import "./style.scss";
 import Icon from "../Icon";
 import { motion } from "framer-motion";
 import { useWindows } from "../../providers/windowManager";
+import classNames from "classnames";
 
-const Window = ({ children = <></>, name = "Window", id = "" }) => {
+const Window = ({
+  children = <></>,
+  name = "Window",
+  id = "",
+  size = "normal",
+  autoClose = false,
+}) => {
   const { closeWindow, getWindow, minimizeWindow } = useWindows();
   const myWindow = getWindow(id);
+
+  if (autoClose && !myWindow.active) {
+    closeWindow(id);
+  }
 
   const handleCloseClick = () => {
     closeWindow(id);
@@ -17,7 +28,7 @@ const Window = ({ children = <></>, name = "Window", id = "" }) => {
   const handleMinimizeClick = () => {
     minimizeWindow(id);
   };
-
+  const windowClasses = classNames("window", size);
   const el = document.querySelector("body");
   return myWindow.active
     ? createPortal(
@@ -25,7 +36,7 @@ const Window = ({ children = <></>, name = "Window", id = "" }) => {
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0, opacity: 0 }}
-          className="window"
+          className={windowClasses}
         >
           <div className="window-toolbar">
             <div className="window-name">{name}</div>
@@ -47,5 +58,7 @@ const Window = ({ children = <></>, name = "Window", id = "" }) => {
 Window.propTypes = {
   children: PropTypes.node,
   id: PropTypes.string.isRequired,
+  size: PropTypes.oneOf(["normal", "mini"]),
+  autoClose: PropTypes.bool,
 };
 export default Window;

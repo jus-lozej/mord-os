@@ -50,7 +50,7 @@ export const getFile = (route) => {
 
     return findFile(filesystem, directories);
   }
-  return {};
+  return { type: "directory", files: {} };
 };
 
 const findFile = (filesystem, directories) => {
@@ -67,7 +67,7 @@ const findFile = (filesystem, directories) => {
     }
     return { ...files[firstDir] };
   }
-  return {};
+  return { type: "directory", files: {} };
 };
 
 export const saveFile = (route, file) => {
@@ -84,23 +84,19 @@ const updateFile = (filesystem, directories, file) => {
 
   let newFilesystem = { ...filesystem };
   if (directories.length === 1) {
-    if (files.hasOwnProperty(firstDir)) {
+    newFilesystem = {
+      ...newFilesystem,
+      files: { ...filesystem.files, [firstDir]: { ...file } },
+    };
+  } else {
+    if (isDirectory(files[firstDir])) {
       newFilesystem = {
         ...newFilesystem,
-        files: { ...filesystem.files, [firstDir]: { ...file } },
+        files: {
+          ...filesystem.files,
+          [firstDir]: updateFile(files[firstDir], rest, file),
+        },
       };
-    }
-  } else {
-    if (files.hasOwnProperty(firstDir)) {
-      if (isDirectory(files[firstDir])) {
-        newFilesystem = {
-          ...newFilesystem,
-          files: {
-            ...filesystem.files,
-            [firstDir]: updateFile(files[firstDir], rest, file),
-          },
-        };
-      }
     }
   }
 

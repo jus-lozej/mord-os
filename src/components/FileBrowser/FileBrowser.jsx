@@ -20,5 +20,4 @@ FileBrowser.propTypes = {
   id: PropTypes.string.isRequired,
   initialRoute: PropTypes.string,
 };
-
 export default FileBrowser;

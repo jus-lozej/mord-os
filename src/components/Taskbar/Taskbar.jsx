@@ -5,14 +5,16 @@ import { useWindows } from "../../providers/windowManager";
 import Icon from "../Icon";
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
+import { logout } from "../../providers/auth";
+import { useNavigate } from "react-router-dom";
 
 const Task = ({ app, active = false, onClick = () => {} }) => {
   const classes = classNames("task", { active: active });
   return (
     <motion.div
-      initial={{ scale: 0, opacity: 0, width: "0rem" }}
-      animate={{ scale: 1, opacity: 1, width: "3rem" }}
-      exit={{ scale: 0, opacity: 0, width: "0rem" }}
+      initial={{ scale: 0, opacity: 0, height: "0rem" }}
+      animate={{ scale: 1, opacity: 1, height: "3rem" }}
+      exit={{ scale: 0, opacity: 0, height: "0rem" }}
       className={classes}
       onClick={onClick}
     >
@@ -28,9 +30,15 @@ Task.propTypes = {
 
 const Taskbar = () => {
   const { windows, showWindow } = useWindows();
+  const navigate = useNavigate();
 
   const handleTaskClick = (id) => {
     return () => showWindow(id);
+  };
+
+  const handleLogoutClick = () => {
+    logout();
+    navigate("/sign-in");
   };
 
   const tasks = windows.map((window) => {
@@ -47,6 +55,13 @@ const Taskbar = () => {
   return (
     <div className="taskbar">
       <AnimatePresence>{tasks}</AnimatePresence>
+      <div className="logout">
+        <Task
+          app={{ icon: "sign-out-alt" }}
+          active={window.active}
+          onClick={handleLogoutClick}
+        ></Task>
+      </div>
     </div>
   );
 };

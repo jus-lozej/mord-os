@@ -5,10 +5,10 @@
   color: $black;
   cursor: pointer;
   justify-content: center;
-  padding-bottom: calc(0.5em - 1px);
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: calc(0.5em - 1px);
+  padding-bottom: getSpacing("1");
+  padding-left: getSpacing("2");
+  padding-right: getSpacing("2");
+  padding-top: getSpacing("1");
   text-align: center;
   white-space: nowrap;
 

@@ -4,3 +4,31 @@
   grid-template-columns: repeat(auto-fill, 100px);
   grid-template-rows: repeat(auto-fill, 100px);
 }
+
+.file-view {
+  position: relative;
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content auto;
+
+  &-actions {
+    padding: getSpacing("2");
+    display: flex;
+    gap: getSpacing("1");
+    border-bottom: 1px solid $gray;
+    .action {
+      cursor: pointer;
+      margin: getSpacing("1");
+      &:hover {
+        color: $primary;
+      }
+    }
+  }
+  .file-grid {
+    margin: getSpacing("2");
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);
+    grid-template-rows: repeat(auto-fill, 100px);
+  }
+}

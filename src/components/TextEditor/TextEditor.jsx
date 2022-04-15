@@ -17,16 +17,16 @@ const TextEditor = ({ id, fileRoute = "" }) => {
 
   const saveFileChanges = () => {
     saveFile(fileRoute, { ...file, text: text });
-    closeWindow(id);
+    closeWindow(id, true);
   };
 
   const deleteTextfile = () => {
     deleteFile(fileRoute);
-    closeWindow(id);
+    closeWindow(id, true);
   };
 
   return (
-    <Window name={`Text editor`} id={id}>
+    <Window name={`Text editor (${fileRoute})`} id={id}>
       <div className="text-editor">
         <div className="text-editor-actions">
           <div className="action" onClick={saveFileChanges}>

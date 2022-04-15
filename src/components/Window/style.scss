@@ -1,11 +1,19 @@
 .window {
   position: absolute;
-  top: 10%;
-  bottom: 10%;
-  left: 10%;
-  right: 10%;
-  background-color: $gray-light;
 
+  background-color: $gray-light;
+  &.normal {
+    top: 10%;
+    bottom: 10%;
+    left: 10%;
+    right: 10%;
+  }
+  &.mini {
+    top: calc(50% - 100px);
+    bottom: calc(50% - 100px);
+    left: calc(50% - 100px);
+    right: calc(50% - 100px);
+  }
   display: grid;
   grid-template-rows: min-content auto;
   &-toolbar {

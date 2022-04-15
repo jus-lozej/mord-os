@@ -6,6 +6,7 @@ const WindowContext = createContext(null);
 
 export const WindowProvider = ({ children = <></> }) => {
   const [windows, setWindows] = useState([]);
+  const [previousActive, setPreviousActive] = useState(null);
 
   const createWindow = (app) => {
     let id = uuidv4();
@@ -20,6 +21,11 @@ export const WindowProvider = ({ children = <></> }) => {
       app,
     };
 
+    const activeWindow = windows.find((window) => window.active);
+    if (activeWindow) {
+      setPreviousActive(activeWindow.id);
+    }
+
     const newWindows = windows.map((window) => ({
       ...window,
       active: false,
@@ -29,8 +35,15 @@ export const WindowProvider = ({ children = <></> }) => {
     setWindows(newWindows);
   };
 
-  const closeWindow = (id) => {
-    const newWindows = windows.filter((window) => window.id !== id);
+  const closeWindow = (id, openPrevious = false) => {
+    let newWindows = windows.filter((window) => window.id !== id);
+
+    if (openPrevious) {
+      newWindows = newWindows.map((window) => ({
+        ...window,
+        active: window.id === previousActive,
+      }));
+    }
     setWindows(newWindows);
   };
 
@@ -39,6 +52,11 @@ export const WindowProvider = ({ children = <></> }) => {
   };
 
   const showWindow = (id) => {
+    const activeWindow = windows.find((window) => window.active);
+    if (activeWindow) {
+      setPreviousActive(activeWindow.id);
+    }
+
     const newWindows = windows.map((window) => ({
       ...window,
       active: window.id === id,
@@ -52,6 +70,8 @@ export const WindowProvider = ({ children = <></> }) => {
       ...window,
       active: window.id === id ? false : window.active,
     }));
+
+    setPreviousActive(id);
 
     setWindows(newWindows);
   };
@@ -92,5 +112,15 @@ export const createTextEditorApp = (route) => {
     name: "Text Ediotr",
     icon: "file-alt",
     route: route,
+  };
+};
+
+export const createCreateFileApp = (route, file, callback) => {
+  return {
+    type: "create-file",
+    route: route,
+    icon: "plus",
+    file: file,
+    callback: callback,
   };
 };

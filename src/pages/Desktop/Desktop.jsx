@@ -1,4 +1,5 @@
 import React from "react";
+import CreateFileWindow from "../../components/CreateFileWindow/CreateFileWindow";
 import File from "../../components/File";
 import FileBrowser from "../../components/FileBrowser";
 import Taskbar from "../../components/Taskbar";
@@ -38,20 +39,31 @@ const Desktop = () => {
         ></TextEditor>
       );
     }
+
+    if (window.app.type === "create-file") {
+      return (
+        <CreateFileWindow
+          key={window.id}
+          id={window.id}
+          route={window.app.route}
+          file={window.app.file}
+        ></CreateFileWindow>
+      );
+    }
   });
 
   return (
     <div className="desktop">
       {windowComponents}
+      <div className="desktop-taskbar">
+        <Taskbar></Taskbar>
+      </div>
       <div className="desktop-apps">
         <File
           filename="File Browser"
           icon="folder"
-          onClick={createFileBrowserWindow}
+          onDoubleClick={createFileBrowserWindow}
         ></File>
-      </div>
-      <div className="desktop-taskbar">
-        <Taskbar></Taskbar>
       </div>
     </div>
   );

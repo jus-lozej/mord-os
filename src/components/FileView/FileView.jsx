@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import File from "../../components/File";
-import { getFile } from "../../utils/filesystem";
+import { deleteFile, getFile, saveFile } from "../../utils/filesystem";
 import PropTypes from "prop-types";
 import "./style.scss";
 import classNames from "classnames";
-import { createTextEditorApp, useWindows } from "../../providers/windowManager";
+import {
+  createCreateFileApp,
+  createTextEditorApp,
+  useWindows,
+} from "../../providers/windowManager";
+import Icon from "../Icon";
 
 const FileView = ({ route = "", changeRoute = () => {} }) => {
-  const files = getFile(route)["files"];
+  const [files, setFiles] = useState(getFile(route)["files"]);
+
+  useEffect(() => {
+    setFiles(getFile(route)["files"]);
+  }, [route]);
 
   const { createWindow } = useWindows();
 
@@ -49,18 +58,64 @@ const FileView = ({ route = "", changeRoute = () => {} }) => {
     changeRoute(previous.join("/"));
   };
 
+  const createTextFile = () => {
+    const app = createCreateFileApp(
+      route,
+      {
+        type: "text",
+        text: "",
+      },
+      () => setFiles(getFile(route)["files"])
+    );
+    createWindow(app);
+  };
+
+  const createDirectory = () => {
+    const app = createCreateFileApp(
+      route,
+      {
+        type: "directory",
+        files: {},
+      },
+      () => setFiles(getFile(route)["files"])
+    );
+    createWindow(app);
+  };
+
+  const deleteDirectory = () => {
+    deleteFile(route);
+    const previous = route.split("/");
+    previous.pop();
+    changeRoute(previous.join("/"));
+  };
+
   return (
-    <div className="file-grid">
-      {route !== "" ? (
-        <File
-          key={"..back"}
-          filename={".."}
-          icon="folder"
-          onDoubleClick={goBack}
-        ></File>
-      ) : null}
-      {fileComponents}
-    </div>
+    <>
+      <div className="file-view">
+        <div className="file-view-actions">
+          <div className="action" onClick={createTextFile}>
+            <Icon name="file-plus-alt"></Icon> Create text file
+          </div>
+          <div className="action" onClick={createDirectory}>
+            <Icon name="folder-plus"></Icon> Create folder
+          </div>
+          <div className="action" onClick={deleteDirectory}>
+            <Icon name="folder-times"></Icon> Delete folder
+          </div>
+        </div>
+        <div className="file-grid">
+          {route !== "" ? (
+            <File
+              key={"..back"}
+              filename={".."}
+              icon="folder"
+              onDoubleClick={goBack}
+            ></File>
+          ) : null}
+          {fileComponents}
+        </div>
+      </div>
+    </>
   );
 };
 FileView.propTypes = {

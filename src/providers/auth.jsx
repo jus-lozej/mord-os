@@ -74,3 +74,7 @@ export const RequiresAuth = ({ children = <></> }) => {
 RequiresAuth.propTypes = {
   children: PropTypes.element,
 };
+
+export const logout = () => {
+  localStorage.removeItem("auth");
+};

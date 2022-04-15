@@ -1,8 +1,11 @@
 .desktop {
   height: 100%;
   display: grid;
-  grid-template-rows: auto min-content;
-  .desktop-apps {
+  grid-template-columns: min-content auto;
+  &-taskbar {
+    height: 100%;
+  }
+  &-apps {
     height: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, 100px);
