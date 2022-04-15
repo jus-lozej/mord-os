@@ -8,22 +8,22 @@ export const createMockFilesystem = () => {
         files: {
           "file1.txt": {
             type: "text",
-            text: "aspodjkapsodkj aspšdojk",
+            text: "File with som text in it.",
           },
-          Deeper_files: {
+          "Nested folder": {
             type: "directory",
             files: {
               "file1.txt": {
                 type: "text",
-                text: "aspodjkapsodkj aspšdojk",
+                text: "I am text file 1",
               },
               "file2.txt": {
                 type: "text",
-                text: "aspodjkapsodkj aspšdojk",
+                text: "I am text file 2",
               },
               "file3.txt": {
                 type: "text",
-                text: "aspodjkapsodkj aspšdojk",
+                text: "I am text file 3",
               },
             },
           },
