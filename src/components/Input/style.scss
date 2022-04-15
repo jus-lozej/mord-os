@@ -6,11 +6,11 @@
   background-color: #fff;
   border-color: #dbdbdb;
   border-radius: 0.375em;
-  color: #363636;
+  color: $black;
 
   &:active,
   &:focus {
-    border-color: #485fc7; //TODO: add primary color
+    border-color: $primary; //TODO: add primary color
     box-shadow: 0 0 0 0.125em rgb(72 95 199 / 25%);
   }
 

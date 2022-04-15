@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { useAuth } from "../../utils/auth";
+import { useAuth } from "../../providers/auth";
 import "./style.scss";
 
 const SignIn = () => {

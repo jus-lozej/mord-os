@@ -2,7 +2,7 @@
   background-color: #fff;
   border-color: #dbdbdb;
   border-width: 1px;
-  color: #363636;
+  color: $black;
   cursor: pointer;
   justify-content: center;
   padding-bottom: calc(0.5em - 1px);
@@ -13,8 +13,8 @@
   white-space: nowrap;
 
   &:active {
-    border-color: #4a4a4a;
-    color: #363636;
+    border-color: $gray;
+    color: $black;
   }
 
   &:focus:not(:active) {
@@ -22,11 +22,11 @@
   }
 
   &:focus {
-    border-color: #485fc7;
-    color: #363636;
+    border-color: $primary;
+    color: $black;
   }
   &:hover {
     border-color: #b5b5b5;
-    color: #363636;
+    color: $black;
   }
 }

@@ -1,0 +1,39 @@
+.window {
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+  background-color: $gray-light;
+
+  display: grid;
+  grid-template-rows: min-content auto;
+  &-toolbar {
+    display: flex;
+    padding: getSpacing("1");
+    border-bottom: 1px solid $gray;
+    .window-name {
+    }
+
+    .window-buttons {
+      margin-left: auto;
+      display: flex;
+      .minimize-icon {
+        cursor: pointer;
+        &:hover {
+          color: $primary;
+        }
+      }
+      .close-icon {
+        cursor: pointer;
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  &-content {
+    height: 100%;
+  }
+}

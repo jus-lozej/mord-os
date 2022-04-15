@@ -7,7 +7,9 @@ import { ErrorOverlay } from "vite-plugin-error-overlay";
 export default defineConfig({
   css: {
     preprocessorOptions: {
-      scss: { additionalData: `@import "./src/style/variables/index.scss";\n` },
+      scss: {
+        additionalData: `@import "./src/style/variables/index.scss";\n@import "./src/style/utilities/index.scss";\n`,
+      },
     },
   },
   plugins: [react(), eslintPlugin(), ErrorOverlay()],

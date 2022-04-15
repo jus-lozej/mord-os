@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import "./App.scss";
 import { Route, Routes } from "react-router-dom";
 import routes from "./router";
-import { AuthProvider, createRootUser } from "./utils/auth";
+import { AuthProvider, createRootUser } from "./providers/auth";
 import { createMockFilesystem } from "./utils/filesystem";
+import { WindowProvider } from "./providers/windowManager";
 
 function App() {
   useEffect(() => {
@@ -17,9 +18,11 @@ function App() {
 
   return (
     <AuthProvider>
-      <div className="App">
-        <Routes>{routeComponents}</Routes>
-      </div>
+      <WindowProvider>
+        <div className="App">
+          <Routes>{routeComponents}</Routes>
+        </div>
+      </WindowProvider>
     </AuthProvider>
   );
 }

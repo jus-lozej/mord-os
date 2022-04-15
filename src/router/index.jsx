@@ -1,7 +1,7 @@
 import React from "react";
-import FileSystem from "../pages/FileSystem";
+import Desktop from "../pages/Desktop";
 import SignIn from "../pages/SignIn";
-import { RequiresAuth } from "../utils/auth";
+import { RequiresAuth } from "../providers/auth";
 
 const routes = [
   {
@@ -13,7 +13,7 @@ const routes = [
     name: "FileSystem",
     element: (
       <RequiresAuth>
-        <FileSystem />
+        <Desktop />
       </RequiresAuth>
     ),
     path: "/",

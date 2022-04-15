@@ -1,7 +1,7 @@
 @import "/src/style/utilities/index.scss";
 
 .file-container {
-  margin: getSpacing("4");
+  margin: getSpacing("3");
 
   display: grid;
   place-items: center;
@@ -13,11 +13,13 @@
     place-items: center;
     cursor: pointer;
 
-    background-color: $gray;
-    color: $white;
+    background-color: $gray-light;
+    color: $gray;
     border-radius: $border-radius;
+    border: 1px solid $gray;
     &:hover {
-      color: $pink;
+      color: $primary;
+      border: 1px solid $primary;
     }
     &-icon {
     }
