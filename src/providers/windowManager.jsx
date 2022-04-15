@@ -85,3 +85,12 @@ export const createFileBrowserApp = (route) => {
     route: route,
   };
 };
+
+export const createTextEditorApp = (route) => {
+  return {
+    type: "text-editor",
+    name: "Text Ediotr",
+    icon: "file-alt",
+    route: route,
+  };
+};

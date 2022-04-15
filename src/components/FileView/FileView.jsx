@@ -1,12 +1,21 @@
 import React from "react";
 import File from "../../components/File";
-import { getRouteFiles } from "../../utils/filesystem";
+import { getFile } from "../../utils/filesystem";
 import PropTypes from "prop-types";
 import "./style.scss";
 import classNames from "classnames";
+import { createTextEditorApp, useWindows } from "../../providers/windowManager";
 
 const FileView = ({ route = "", changeRoute = () => {} }) => {
-  const files = getRouteFiles(route);
+  const files = getFile(route)["files"];
+
+  const { createWindow } = useWindows();
+
+  const createTextEditorWindow = (route) => {
+    const app = createTextEditorApp(route);
+
+    createWindow(app);
+  };
 
   const fileComponents = Object.keys(files).map((filename) => {
     const fileClasses = classNames({ selected: files[filename].selected });
@@ -26,8 +35,9 @@ const FileView = ({ route = "", changeRoute = () => {} }) => {
         <File
           key={filename}
           filename={filename}
-          icon="file"
+          icon="file-alt"
           className={fileClasses}
+          onDoubleClick={() => createTextEditorWindow(route + `/${filename}`)}
         ></File>
       );
     }

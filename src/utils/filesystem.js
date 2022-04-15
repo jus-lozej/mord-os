@@ -8,22 +8,22 @@ export const createMockFilesystem = () => {
         files: {
           "file1.txt": {
             type: "text",
-            contents: "aspodjkapsodkj aspšdojk",
+            text: "aspodjkapsodkj aspšdojk",
           },
           Deeper_files: {
             type: "directory",
             files: {
               "file1.txt": {
                 type: "text",
-                contents: "aspodjkapsodkj aspšdojk",
+                text: "aspodjkapsodkj aspšdojk",
               },
               "file2.txt": {
                 type: "text",
-                contents: "aspodjkapsodkj aspšdojk",
+                text: "aspodjkapsodkj aspšdojk",
               },
               "file3.txt": {
                 type: "text",
-                contents: "aspodjkapsodkj aspšdojk",
+                text: "aspodjkapsodkj aspšdojk",
               },
             },
           },
@@ -40,35 +40,113 @@ export const createMockFilesystem = () => {
 };
 
 // Get files of given route
-export const getRouteFiles = (route) => {
+export const getFile = (route) => {
   const directories = route.slice(1).split("/");
   const filesystem = JSON.parse(localStorage.getItem("filesystem"));
   if (filesystem) {
     if (route === "") {
-      return filesystem.files;
+      return filesystem;
     }
 
-    return findDirectoryFiles(filesystem, directories);
+    return findFile(filesystem, directories);
   }
   return {};
 };
 
-const findDirectoryFiles = (filesystem, directories) => {
+const findFile = (filesystem, directories) => {
   const files = { ...filesystem.files };
   const [firstDir, ...rest] = directories;
 
   if (files.hasOwnProperty(firstDir)) {
     if (isDirectory(files[firstDir])) {
       if (directories.length === 1) {
-        return { ...files[firstDir].files };
+        return { ...files[firstDir] };
       } else {
-        return findDirectoryFiles(files[firstDir], rest);
+        return findFile(files[firstDir], rest);
       }
     }
+    return { ...files[firstDir] };
   }
   return {};
 };
 
-const isDirectory = (file) => {
+export const saveFile = (route, file) => {
+  const directories = route.slice(1).split("/");
+  const filesystem = JSON.parse(localStorage.getItem("filesystem"));
+
+  const newFilesystem = updateFile(filesystem, directories, file);
+  localStorage.setItem("filesystem", JSON.stringify(newFilesystem));
+};
+
+const updateFile = (filesystem, directories, file) => {
+  const files = { ...filesystem.files };
+  const [firstDir, ...rest] = directories;
+
+  let newFilesystem = { ...filesystem };
+  if (directories.length === 1) {
+    if (files.hasOwnProperty(firstDir)) {
+      newFilesystem = {
+        ...newFilesystem,
+        files: { ...filesystem.files, [firstDir]: { ...file } },
+      };
+    }
+  } else {
+    if (files.hasOwnProperty(firstDir)) {
+      if (isDirectory(files[firstDir])) {
+        newFilesystem = {
+          ...newFilesystem,
+          files: {
+            ...filesystem.files,
+            [firstDir]: updateFile(files[firstDir], rest, file),
+          },
+        };
+      }
+    }
+  }
+
+  return newFilesystem;
+};
+
+export const deleteFile = (route) => {
+  const directories = route.slice(1).split("/");
+  const filesystem = JSON.parse(localStorage.getItem("filesystem"));
+
+  const newFilesystem = removeFile(filesystem, directories);
+  localStorage.setItem("filesystem", JSON.stringify(newFilesystem));
+};
+
+const removeFile = (filesystem, directories) => {
+  const files = { ...filesystem.files };
+  const [firstDir, ...rest] = directories;
+
+  let newFilesystem = { ...filesystem };
+  if (directories.length === 1) {
+    if (files.hasOwnProperty(firstDir)) {
+      const newFiles = { ...filesystem.files };
+      delete newFiles[firstDir];
+      newFilesystem = { ...newFilesystem, files: newFiles };
+    }
+  } else {
+    if (files.hasOwnProperty(firstDir)) {
+      if (isDirectory(files[firstDir])) {
+        newFilesystem = {
+          ...newFilesystem,
+          files: {
+            ...filesystem.files,
+            [firstDir]: removeFile(files[firstDir], rest),
+          },
+        };
+      }
+    }
+  }
+
+  return newFilesystem;
+};
+
+export const isDirectory = (file) => {
   return file.type === "directory";
+};
+
+export const isTextFile = (file) => {
+  return file.type === "text";
 };
