@@ -1,0 +1,7 @@
+.naming {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: getSpacing("2");
+  margin: getSpacing("2");
+}

@@ -124,3 +124,10 @@ export const createCreateFileApp = (route, file, callback) => {
     callback: callback,
   };
 };
+
+export const createNewsFeedApp = () => {
+  return {
+    type: "news-feed",
+    icon: "newspaper",
+  };
+};

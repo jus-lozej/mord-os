@@ -4,8 +4,23 @@
   display: grid;
   place-items: center;
   text-align: center;
+  background: $red-dark;
+  background: linear-gradient(43deg, $red-dark 0%, $red 100%);
 
   &-container {
     max-width: 500px;
+    width: 100%;
+    .sign-in-title {
+      color: $yellow;
+    }
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: getSpacing("2");
+      .error-message {
+        color: $yellow;
+      }
+    }
   }
 }

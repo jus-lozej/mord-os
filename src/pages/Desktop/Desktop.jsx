@@ -2,10 +2,12 @@ import React from "react";
 import CreateFileWindow from "../../components/CreateFileWindow/CreateFileWindow";
 import File from "../../components/File";
 import FileBrowser from "../../components/FileBrowser";
+import NewsFeed from "../../components/NewsFeed/NewsFeed";
 import Taskbar from "../../components/Taskbar";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import {
   createFileBrowserApp,
+  createNewsFeedApp,
   useWindows,
 } from "../../providers/windowManager";
 import "./style.scss";
@@ -15,6 +17,12 @@ const Desktop = () => {
 
   const createFileBrowserWindow = () => {
     const app = createFileBrowserApp("");
+
+    createWindow(app);
+  };
+
+  const createNewsFeedWindow = () => {
+    const app = createNewsFeedApp();
 
     createWindow(app);
   };
@@ -50,6 +58,9 @@ const Desktop = () => {
         ></CreateFileWindow>
       );
     }
+    if (window.app.type === "news-feed") {
+      return <NewsFeed key={window.id} id={window.id}></NewsFeed>;
+    }
   });
 
   return (
@@ -63,6 +74,11 @@ const Desktop = () => {
           filename="File Browser"
           icon="folder"
           onDoubleClick={createFileBrowserWindow}
+        ></File>
+        <File
+          filename="News Feed"
+          icon="newspaper"
+          onDoubleClick={createNewsFeedWindow}
         ></File>
       </div>
     </div>

@@ -1,8 +1,9 @@
 .button {
-  background-color: #fff;
-  border-color: #dbdbdb;
+  background-color: $red;
+  border-color: $red;
   border-width: 1px;
-  color: $black;
+  color: $white;
+  font-weight: bold;
   cursor: pointer;
   justify-content: center;
   padding-bottom: getSpacing("1");
@@ -14,19 +15,17 @@
 
   &:active {
     border-color: $gray;
-    color: $black;
   }
 
   &:focus:not(:active) {
-    box-shadow: 0 0 0 0.125em rgb(72 95 199 / 25%);
+    box-shadow: 0 0 0 0.125em lighten($red, 50%);
   }
 
   &:focus {
-    border-color: $primary;
-    color: $black;
+    border-color: $yellow;
   }
+
   &:hover {
-    border-color: #b5b5b5;
-    color: $black;
+    background-color: lighten($red, 10%);
   }
 }

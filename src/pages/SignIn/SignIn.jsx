@@ -29,7 +29,7 @@ const SignIn = () => {
   return (
     <div className="sign-in">
       <div className="sign-in-container">
-        <h1>Mord-OS</h1>
+        <h1 className="sign-in-title">Mord-OS</h1>
         <form onSubmit={login}>
           <Input
             fluid

@@ -13,18 +13,25 @@
     place-items: center;
     text-align: center;
     cursor: pointer;
-
-    background-color: $gray-light;
+    box-shadow: 0px 0px 20px rgba($black, 0.4);
+    background-color: $white;
     color: $gray;
     border-radius: $border-radius;
     border: 1px solid $gray;
+    transition: all ease-in-out 0.3s;
     &:hover {
-      color: $primary;
+      background-color: lighten($red, 50%);
       border: 1px solid $primary;
     }
     &-icon {
+      color: $yellow;
     }
-    &-text {
+    &-name {
+      color: $black;
+      font-weight: bold;
+      max-width: 76px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }

@@ -5,6 +5,7 @@ import Window from "../Window";
 import Button from "../Button/Button";
 import { saveFile } from "../../utils/filesystem";
 import { useWindows } from "../../providers/windowManager";
+import "./style.scss";
 
 const CreateFileWindow = ({ id, route, file, callback = () => {} }) => {
   const [name, setName] = useState("");
