@@ -3,12 +3,13 @@
 
   background-color: $white;
   box-shadow: 0px 0px 20px rgba($black, 0.4);
-  &.normal {
+  /* &.normal {
     top: 10%;
     bottom: 10%;
     left: 10%;
     right: 10%;
-  }
+  }*/
+
   &.mini {
     top: calc(50% - 100px);
     bottom: calc(50% - 100px);
@@ -22,7 +23,9 @@
     display: flex;
     padding: getSpacing("1");
     border-bottom: 1px solid $yellow;
+    cursor: grab;
     .window-name {
+      user-select: none;
     }
 
     .window-buttons {

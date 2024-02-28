@@ -18,6 +18,7 @@ export const WindowProvider = ({ children = <></> }) => {
     const newWindow = {
       id: id,
       active: true,
+      zIndex: 10,
       app,
     };
 
@@ -26,10 +27,12 @@ export const WindowProvider = ({ children = <></> }) => {
       setPreviousActive(activeWindow.id);
     }
 
-    const newWindows = windows.map((window) => ({
+    /*const newWindows = windows.map((window) => ({
       ...window,
       active: false,
-    }));
+    }));*/
+
+    const newWindows = [...windows];
 
     newWindows.push(newWindow);
     setWindows(newWindows);
@@ -59,7 +62,8 @@ export const WindowProvider = ({ children = <></> }) => {
 
     const newWindows = windows.map((window) => ({
       ...window,
-      active: window.id === id,
+      zIndex: window.id === id ? 100 : 10,
+      active: window.id === id ? true : window.active,
     }));
 
     setWindows(newWindows);
@@ -109,7 +113,7 @@ export const createFileBrowserApp = (route) => {
 export const createTextEditorApp = (route) => {
   return {
     type: "text-editor",
-    name: "Text Ediotr",
+    name: "Text Editor",
     icon: "file-alt",
     route: route,
   };
